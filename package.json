@@ -1,0 +1,9 @@
+{
+    "name": "ProyFinal",
+    "version": "1.0.0",
+    "description": "Proyecto final para el curso de NodeJs",
+    "keywords": ["util", "functional", "server", "client", "browser"],
+    "author": "israelortegac@gmail.com",
+    "contributors": [],
+    "dependencies": {}
+}
