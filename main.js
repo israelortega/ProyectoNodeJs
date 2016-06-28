@@ -42,12 +42,23 @@ app.use("/", express.static("./public"));
 //inicialización de método get
 app.get("/", function (req, res) {
     //res.render("inicio", {IDSesion: req.session});
-    if (req.session) {
-        req.session = null;
-    }
-    ;
+
+
     Vacante.find({}, function (err, puestos) {
-        res.render("inicio", {puestos: puestos});
+        if (req.session.user_id) {
+            console.log("con sesion");
+            res.render("inicio", {
+                puestos: puestos,
+                IDSesion: req.session,
+                Usuario:req.usuario
+            });
+        } else {
+            console.log("sin sesion");
+            res.render("inicio", {puestos: puestos});
+        }
+
+
+
         //console.log(puestos);	
     });
 });
@@ -55,7 +66,7 @@ app.get("/", function (req, res) {
 app.get("/iniciarSesion", function (req, res) {
     console.log("Iniciar sesion...");
     User.count({}, function (err, usuarios) {
-        console.log("Usuarios: " + usuarios);
+        //console.log("Usuarios: " + usuarios);
         if (usuarios != 0) {
             res.render("iniciarSesion");
         } else {
@@ -66,27 +77,31 @@ app.get("/iniciarSesion", function (req, res) {
 });
 
 app.get("/cerrarSesion", function (req, res) {
-    User.find({}, function (err, usuarios) {
-        res.render("/mostrarUsuarios", {usuarios: usuarios});
-    });
+    console.log("cerrar sesion");
+    req.session=null;
+    res.render("cerrar");
 });
 
-//Usuario
+//Aqui determina si el usuario existe en la base de datos
 app.post("/usuarioFirmado", function (req, res) {
+    console.log("Usuario Firmado");
+
+    //Busca el primer usuario que cumpla el criterio
     User.findOne({usuario: req.body.usuario,
         password: req.body.password},
             function (err, usua) {
-                console.log("Mi usuario en sesion");
-                console.log(usua);
+                //console.log(usua);
                 if (usua) {
+                    console.log("Mi usuario en sesion");
                     req.session.user_id = usua._id;
                     req.session.coreo = usua.email;
-                    req.session.admin = true;
-                    //console.log(req.session);
+                    req.session.admin = usua.admin;
+                    req.session.usuario = usua.usuario;
+                    console.log(req.session);
                     //res.send("Bienvenido "+req.body.usuario);
                     res.render("nuevoPuesto", {IDSesion: req.session})
                 } else {
-                    res.render("index", {
+                    res.render("iniciarSesion", {
                         error: "Usuario o password incorrecto"});
                 }
 
@@ -131,12 +146,12 @@ app.post("/nuevoUsuario", function (req, res) {
                 user.save(function (err) {
                     if (err) {
                         console.log("Error :" + String(err));
-                        
+
                         res.render("nuevoUsuario", {
-                        error:  String(err),
-                        usuario: req.body.usuario
+                            error: String(err),
+                            usuario: req.body.usuario
                         });
-                    }else{
+                    } else {
                         res.render("iniciarSesion");
                     }
                 });
@@ -185,7 +200,7 @@ app.post("/nuevoPuesto", function (req, res) {
                     if (err) {
                         console.log(String(err));
                         res.send(String(err));
-                    }else{
+                    } else {
                         res.render("datosGuardados", {id: id});
                     }
                 });

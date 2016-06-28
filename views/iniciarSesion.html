@@ -4,7 +4,7 @@
 #}
 {% block title %} Bienvenido {% endblock %}
 {% block content %}
-{{error}}
+
 <form method="POST" action="/usuarioFirmado" >
         <span class="label label-info">Acceso solamente a usuarios autorizados</span>
         <p>&nbsp;</p>
@@ -24,4 +24,11 @@
 		</tr>
 	</table>
 </form>
+{% if error %}
+    <p>&nbsp;</p>
+    Error: <span class="label label-danger"> {{error}}</span>
+    
+{% endif %}    
+
+
 {% endblock %}
