@@ -7,13 +7,15 @@
   utilizamos la plantilla de encabezado
 #}
 {% block content %}
-<table border="1" style="width:100%">
+
+
+<table class="table">
   <tr>
     <th>ID</th>
     <th>Vacante</th>
     <th>Desripcion</th>
     <th>Salario</th>
-    <th>Sexo</th>
+    <th>Sexo Requerido</th>
     <th>Postularme</th>
   </tr>
     {%for item in puestos %}
