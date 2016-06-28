@@ -148,7 +148,6 @@ app.get("/Postularme",function(req,res){
 	res.render("postularme",{id:req.query.id});
 });
 
-//levantamos el servidor en el puerto 8080
 app.listen(8081);
 console.log("ProyFinal en el puerto 8081!!!!");
 
