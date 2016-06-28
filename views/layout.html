@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>{%block title %}Mi Proyecto {% endblock %}</title>
+      {%block head %}
+      <link rel="stylesheet" href="main.css">
+      {% endblock %}
+  </head>
+  <body>
+    <h1 align="center">Sistema de Vacantes RH</h1>
+    <table align="right">
+      <tr>
+        <td align="right">
+          {% if IDSesion.user_id %}
+          <a href="/">Cerrar Sesión</a>
+          {% else %}
+          <a href="/iniciarSesion">Iniciar Sesion</a>
+          {% endif %}      
+        </td>
+      </tr>
+    </table>
+    <br>
+    <hr style="color: #0056b2;" />   
+    <br>
+    {% block content %}{% endblock %}
+  </body>
+</html>

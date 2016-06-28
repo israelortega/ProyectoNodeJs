@@ -1,0 +1,33 @@
+{% extends 'layout.html' %}
+{#
+  utilizamos la platilla de encabezado
+#}
+{% block title %} Usuarios regisrados {% endblock %}
+{% block content %}
+
+<table border="1" style="width:100%">
+  <tr>
+    <th>Nombre</th>
+    <th>Edad</th>
+    <th>Sexo</th>
+    <th>Correo</th>
+  </tr>
+    {%for item in usuarios %}
+      <tr>
+        <td>{{item.usuario}}</td>
+        <td>{{item.edad}}</td>
+        <td>{{item.sexo}}</td>
+        <td>{{item.email}}</td>
+      </tr>
+    {% endfor%}
+</table>
+<table>
+    <tr>
+    <td>
+      <form action="/">
+        <input type="submit" name="regresar" value="Regresar">
+      </form>    
+    </td>
+  </tr>
+</table>
+{% endblock %}

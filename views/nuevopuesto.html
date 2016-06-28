@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{#
+  utilizamos la platilla de encabezado
+#}
+{% block title %} Registro de puestos {% endblock %}
+{% block content %}
+{{error}}
+{{id}}
+<h2>Nueva vacante RH</h2>
+<form method="POST" action="/nuevoPuesto">
+  <table>
+    <tr>
+      <td><label for="nombre">Puesto</label></td>
+      <td><input type="text" name="nombre" id="nombre"></td>
+    </tr>
+    <tr>
+      <td><label for="descrip">Descripcion</label></td>
+      <td><input type="text" name="descrip" id="descrip"></td>
+    </tr>
+
+    <tr>
+      <td><label for="salario">Salario</label></td>
+      <td><input type="text" name="salario" id="salario"></td>
+    </tr>
+
+    <tr>
+      <td><label for="sexo">Sexo</label></td>
+      <td><input type="text" name="sexo" id="sexo"></td>
+    </tr>
+
+    <tr>
+      <td><label for="idioma">Idioma</label></td>
+      <td>
+        <select name="idioma" id="idioma">
+          <option value="1">Ingles </option>
+          <option value="2">Español</option>
+          <option value="3">Indistinto</option>
+        </select>
+      </td>
+    </tr>       
+  </table>
+  <br>
+  <table>
+    <tr><td><input type="submit" name="enviar" value="Registrar"></td></tr>
+  </table>
+</form>
+{% endblock %}

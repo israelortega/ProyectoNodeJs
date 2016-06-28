@@ -1,0 +1,31 @@
+{#
+  Comentarios acerca de swig
+  Estos comentarios no se ven cuando se genera HTML
+#}
+{% extends 'layout.html' %}
+{#
+  utilizamos la plantilla de encabezado
+#}
+{% block content %}
+<table border="1" style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Vacante</th>
+    <th>Desripcion</th>
+    <th>Salario</th>
+    <th>Sexo</th>
+    <th>Postularme</th>
+  </tr>
+    {%for item in puestos %}
+      <tr>
+        <td align="center">{{item.id}}</td>
+        <td>{{item.nombre}}</td>
+        <td>{{item.descrip}}</td>
+        <td align="right">{{item.salario}}</td>
+        <td align="center">{{item.sexo}}</td>
+        <td align="center"><a href="/Postularme?id={{item.id}}">Aplicar</a></td>
+      </tr>
+    {% endfor%}
+</table>
+
+{% endblock %}
