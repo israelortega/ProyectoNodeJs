@@ -43,17 +43,16 @@ app.use("/", express.static("./public"));
 app.get("/", function (req, res) {
     //res.render("inicio", {IDSesion: req.session});
 
-
     Vacante.find({}, function (err, puestos) {
         if (req.session.user_id) {
-            console.log("con sesion");
+            //console.log("con sesion");
             res.render("inicio", {
                 puestos: puestos,
                 IDSesion: req.session,
                 Usuario:req.usuario
             });
         } else {
-            console.log("sin sesion");
+            //console.log("sin sesion");
             res.render("inicio", {puestos: puestos});
         }
 
@@ -77,7 +76,7 @@ app.get("/iniciarSesion", function (req, res) {
 });
 
 app.get("/cerrarSesion", function (req, res) {
-    console.log("cerrar sesion");
+    //console.log("cerrar sesion");
     req.session=null;
     res.render("cerrar");
 });
@@ -99,7 +98,8 @@ app.post("/usuarioFirmado", function (req, res) {
                     req.session.usuario = usua.usuario;
                     console.log(req.session);
                     //res.send("Bienvenido "+req.body.usuario);
-                    res.render("nuevoPuesto", {IDSesion: req.session})
+                    res.render("nuevoPuesto", {IDSesion: req.session,
+                        usuario: req.session.usuario})
                 } else {
                     res.render("iniciarSesion", {
                         error: "Usuario o password incorrecto"});
